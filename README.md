@@ -47,7 +47,7 @@ A simple and secure To-Do application built using **Node.js**, **Express**, **Mo
 ### 1️⃣ Clone the repository
 
 1. git clone <your-repo-link>
-2. cd todo-app
+2. cd .\Todo-App\
 3. npm install
 4. Creat a .env file :-
 JWT_SECRET=yourSecretHere
