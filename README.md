@@ -50,7 +50,7 @@ A simple and secure To-Do application built using **Node.js**, **Express**, **Mo
 2. cd .\Todo-App\
 3. npm install
 4. Creat a .env file :-
-JWT_SECRET=yourSecretHere
+JWT_SECRET=yourSecretHere;
 mongo_link=yourMongoDBConnectionString
 5. node backend.js (Start the server)
 6. http://localhost:3000 (Start the app)
