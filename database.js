@@ -10,10 +10,9 @@ const User = new Schema({
 })
 
 const Todo = new Schema({
-    todo: String,
+    title: String,
     done: { type: Boolean, default: false },
-    UserId: ObjectId,
-    deadline: { type: Date }
+    UserId: String,
 })
 
 const UserModel = mongoose.model("users", User)

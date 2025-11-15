@@ -2,14 +2,15 @@ require('dotenv').config();
 const express = require("express")
 const app = express()
 const jwt = require("jsonwebtoken")
-const jwt_secret = process.env.jwt_secret
+const jwt_secret = process.env.JWT_SECRET
 const path = require("path")
 const z = require("zod")
 const bcrypt = require("bcrypt")
 const { UserModel, TodoModel } = require("./database")
-const auth=require('./database')
+const auth = require('./authorization')
 app.use(express.static(path.join(__dirname, "files")))
 app.use(express.json())
+
 
 app.post("/signup", async function (req, res) {
 
@@ -55,12 +56,12 @@ app.post("/signin", async function (req, res) {
 
     let founduser = await UserModel.findOne({ username })
 
-    if (!founduser){return res.json({ msg: "Invalid username or password!" })}
+    if (!founduser) { return res.json({ msg: "Invalid username or password!" }) }
 
     let passwordmatch = await bcrypt.compare(password, founduser.password)
 
     if (parsed.success && passwordmatch) {
-        
+
 
         let token = jwt.sign({ UserId: founduser._id.toString() }, jwt_secret)
 
@@ -72,6 +73,35 @@ app.post("/signin", async function (req, res) {
     } else { res.json({ msg: "Invalid username or password!" }) }
 
 })
+
+app.get("/todos", auth, async function (req, res) {
+    let todos = await TodoModel.find({ UserId: req.UserId })
+    res.json({ todos })
+})
+
+app.post("/todos", auth, async function (req, res) {
+    await TodoModel.create({ title: req.body.title, UserId: req.UserId })
+    res.json({})
+})
+
+app.put("/todos", auth, async function (req, res) {
+    await TodoModel.findByIdAndUpdate(req.body.id, { title: req.body.title, UserId: req.UserId })
+    res.json({})
+})
+
+
+app.delete("/todos", auth, async function (req, res) {
+    await TodoModel.findByIdAndDelete(req.body.id)
+    res.json({})
+})
+
+app.put("/todos/done", auth, async function (req, res) {
+    let founduser = await TodoModel.findById(req.body.id)
+    if (founduser.done === false) { founduser.done = true, await founduser.save() }
+    else { founduser.done = false, await founduser.save() }
+    res.json({})
+})
+
 
 
 app.listen(3000)
