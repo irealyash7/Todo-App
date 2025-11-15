@@ -7,22 +7,25 @@
     <title>Todo App</title>
 
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </head>
 
 <body>
+    <div id="toast"></div>
+
     <div id="signup-container" style="display: block;">
         <h2>Sign Up</h2>
-        <input type="text" placeholder="username">
-        <input type="text" placeholder="password">
+        <input id="rusername" type="text" placeholder="username">
+        <input id="rpassword" type="text" placeholder="password">
         <button onclick="register()">Register</button>
         <button onclick="movetoSignIn()">Already have an account? Sign In</button>
     </div>
 
     <div id="signin-container" style="display: none;">
         <h2>Sign In</h2>
-        <input type="text" placeholder="username">
-        <input type="text" placeholder="password">
+        <input id="susername" type="text" placeholder="username">
+        <input id="spassword" type="text" placeholder="password">
         <button onclick="login()">Login</button>
         <button onclick="movetoSignUp()">Don't have an account? Sign Up</button>
     </div>

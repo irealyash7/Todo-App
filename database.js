@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require("mongoose")
-const Scehma = mongoose.Schema
+const Schema = mongoose.Schema
 const ObjectId = mongoose.ObjectId
 mongoose.connect(process.env.mongo_link)
 
@@ -10,9 +10,9 @@ const User = new Schema({
 })
 
 const Todo = new Schema({
-    title: String,
+    todo: String,
     done: { type: Boolean, default: false },
-    userId: ObjectId,
+    UserId: ObjectId,
     deadline: { type: Date }
 })
 
